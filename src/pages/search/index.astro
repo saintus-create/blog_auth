@@ -1,7 +1,6 @@
 ---
 import Layout from "@layouts/Layout.astro";
 import Container from "@components/Container.astro";
-import Link from "@components/Link.astro";
 import { Search, Sparkles, Loader2 } from "@lucide/astro";
 
 const title = "Search";
@@ -51,7 +50,7 @@ const description = "Search blog posts and projects with AI-powered semantic sea
   </Container>
 </Layout>
 
-<script lang="ts">
+<script is:inline lang="ts">
   const searchInput = document.getElementById("search-input") as HTMLInputElement | null;
   const searchButton = document.getElementById("search-button") as HTMLButtonElement | null;
   const resultsContainer = document.getElementById("results") as HTMLDivElement | null;

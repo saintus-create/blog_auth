@@ -2,9 +2,10 @@ import type { APIRoute } from "astro";
 
 export const prerender = false;
 
-export const POST: APIRoute = async ({ platform, request }) => {
+export const POST: APIRoute = async (context) => {
   try {
-    const body = await request.json();
+    const { request } = context;
+    const body = await request.json() as { messages?: Array<{ role: string; content: string }> };
     const { messages } = body;
 
     if (!messages || !Array.isArray(messages)) {
@@ -14,7 +15,8 @@ export const POST: APIRoute = async ({ platform, request }) => {
       );
     }
 
-    const aiSearch = (platform as Record<string, unknown>).env.AI_SEARCH as {
+    const platform = (context as any).platform;
+    const aiSearch = platform?.env?.AI_SEARCH as {
       chatCompletion: (params: {
         messages: Array<{ role: string; content: string }>;
         maxTokens?: number;

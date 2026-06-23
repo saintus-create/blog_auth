@@ -2,7 +2,8 @@ import type { APIRoute } from "astro";
 
 export const prerender = false;
 
-export const GET: APIRoute = async ({ platform, request }) => {
+export const GET: APIRoute = async (context) => {
+  const { request } = context;
   const url = new URL(request.url);
   const query = url.searchParams.get("q");
 
@@ -14,7 +15,8 @@ export const GET: APIRoute = async ({ platform, request }) => {
   }
 
   try {
-    const aiSearch = (platform as Record<string, unknown>).env.AI_SEARCH as {
+    const platform = (context as any).platform;
+    const aiSearch = platform?.env?.AI_SEARCH as {
       search: (params: { query: string; maxNumResults?: number }) => Promise<{
         response?: string;
         data?: Array<{
@@ -49,9 +51,10 @@ export const GET: APIRoute = async ({ platform, request }) => {
   }
 };
 
-export const POST: APIRoute = async ({ platform, request }) => {
+export const POST: APIRoute = async (context) => {
   try {
-    const body = await request.json();
+    const { request } = context;
+    const body = await request.json() as { query?: string };
     const { query } = body;
 
     if (!query) {
@@ -61,7 +64,8 @@ export const POST: APIRoute = async ({ platform, request }) => {
       );
     }
 
-    const aiSearch = (platform as Record<string, unknown>).env.AI_SEARCH as {
+    const platform = (context as any).platform;
+    const aiSearch = platform?.env?.AI_SEARCH as {
       search: (params: { query: string; maxNumResults?: number }) => Promise<unknown>;
     };
 

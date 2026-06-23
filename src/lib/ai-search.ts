@@ -31,7 +31,7 @@ export async function search(query: string): Promise<SearchResult[]> {
   if (!response.ok) {
     throw new Error(`Search failed: ${response.statusText}`);
   }
-  const data = await response.json();
+  const data = await response.json() as { data?: SearchResult[]; results?: SearchResult[] };
   return data.data || data.results || [];
 }
 

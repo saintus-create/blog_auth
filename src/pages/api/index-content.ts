@@ -3,9 +3,10 @@ import { getCollection } from "astro:content";
 
 export const prerender = false;
 
-export const POST: APIRoute = async ({ platform }) => {
+export const POST: APIRoute = async (context) => {
   try {
-    const aiSearch = (platform as Record<string, unknown>).env.AI_SEARCH as {
+    const platform = (context as any).platform;
+    const aiSearch = platform?.env?.AI_SEARCH as {
       search?: unknown;
       chatCompletion?: unknown;
       indexDocument?: (params: {
@@ -32,8 +33,8 @@ export const POST: APIRoute = async ({ platform }) => {
 
     const indexed: string[] = [];
     for (const entry of allEntries) {
-      const content = entry.body;
-      const result = await (aiSearch as Record<string, unknown>).indexDocument({
+      const content = entry.body || "";
+      const result = await aiSearch.indexDocument({
         instance: "blog-instance",
         content,
         filename: `${entry.id}.md`,
