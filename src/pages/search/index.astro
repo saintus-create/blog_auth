@@ -1,7 +1,7 @@
 ---
 import Layout from "@layouts/Layout.astro";
 import Container from "@components/Container.astro";
-import { Search, Sparkles, Loader2 } from "@lucide/astro";
+import { Search, Sparkles } from "@lucide/astro";
 
 const title = "Search";
 const description = "Search blog posts and projects with AI-powered semantic search.";
@@ -50,11 +50,11 @@ const description = "Search blog posts and projects with AI-powered semantic sea
   </Container>
 </Layout>
 
-<script is:inline lang="ts">
-  const searchInput = document.getElementById("search-input") as HTMLInputElement | null;
-  const searchButton = document.getElementById("search-button") as HTMLButtonElement | null;
-  const resultsContainer = document.getElementById("results") as HTMLDivElement | null;
-  const noResults = document.getElementById("no-results") as HTMLDivElement | null;
+<script is:inline>
+  const searchInput = document.getElementById("search-input");
+  const searchButton = document.getElementById("search-button");
+  const resultsContainer = document.getElementById("results");
+  const noResults = document.getElementById("no-results");
 
   async function doSearch() {
     const query = searchInput?.value.trim();
@@ -62,7 +62,6 @@ const description = "Search blog posts and projects with AI-powered semantic sea
 
     resultsContainer.innerHTML = `
       <div class="flex items-center justify-center gap-3 py-12 text-gray-500 dark:text-gray-400">
-        <Loader2 class="h-6 w-6 animate-spin" />
         <span>Searching...</span>
       </div>
     `;
@@ -125,7 +124,7 @@ const description = "Search blog posts and projects with AI-powered semantic sea
     }
   }
 
-  function escapeHtml(text: string): string {
+  function escapeHtml(text) {
     const div = document.createElement("div");
     div.textContent = text;
     return div.innerHTML;

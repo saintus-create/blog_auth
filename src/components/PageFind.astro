@@ -51,7 +51,7 @@ import Search from "astro-pagefind/components/Search";
   </div>
 </aside>
 
-<script lang="ts">
+<script is:inline>
   const magnifyingGlass = document.getElementById("magnifying-glass");
   const backdrop = document.getElementById("backdrop");
   const keywordSearchBtn = document.getElementById("keyword-search-btn");
@@ -64,7 +64,9 @@ import Search from "astro-pagefind/components/Search";
 
   function openPagefind() {
     const searchDiv = document.getElementById("search");
+    if (!searchDiv) return;
     const search = searchDiv.querySelector("input");
+    if (!search) return;
     setTimeout(() => {
       search.focus();
     }, 0);
@@ -74,7 +76,11 @@ import Search from "astro-pagefind/components/Search";
 
   function closePagefind() {
     const search = document.getElementById("search");
-    search.value = "";
+    if (!search) return;
+    const searchInput = search.querySelector("input");
+    if (searchInput) {
+      searchInput.value = "";
+    }
     backdrop?.classList.remove("visible");
     backdrop?.classList.add("invisible");
   }
@@ -100,7 +106,9 @@ import Search from "astro-pagefind/components/Search";
     const query = aiSearchInput?.value?.trim();
     if (!query) return;
 
-    aiSearchResults!.innerHTML = '<div class="ai-search-loading">Searching...</div>';
+    if (aiSearchResults) {
+      aiSearchResults.innerHTML = '<div class="ai-search-loading">Searching...</div>';
+    }
 
     try {
       const response = await fetch('/api/ai-search', {
@@ -119,31 +127,39 @@ import Search from "astro-pagefind/components/Search";
       displayAISearchResults(data);
     } catch (error) {
       console.error('AI search error:', error);
-      aiSearchResults!.innerHTML = '<div class="ai-search-error">Search failed. Please try again.</div>';
+      if (aiSearchResults) {
+        aiSearchResults.innerHTML = '<div class="ai-search-error">Search failed. Please try again.</div>';
+      }
     }
   }
 
-  function displayAISearchResults(results: any) {
+  function displayAISearchResults(results) {
     if (!results || results.length === 0) {
-      aiSearchResults!.innerHTML = '<div class="ai-search-no-results">No results found</div>';
+      if (aiSearchResults) {
+        aiSearchResults.innerHTML = '<div class="ai-search-no-results">No results found</div>';
+      }
       return;
     }
 
-    aiSearchResults!.innerHTML = results.map((result: any) => `
-      <div class="ai-search-result" data-url="${result.url || '#'}">
-        <div class="ai-search-result-title">${result.title || 'Untitled'}</div>
-        <div class="ai-search-result-snippet">${result.snippet || result.content || ''}</div>
-      </div>
-    `).join('');
+    if (aiSearchResults) {
+      aiSearchResults.innerHTML = results.map(function(result) {
+        return `
+        <div class="ai-search-result" data-url="${result.url || '#'}">
+          <div class="ai-search-result-title">${result.title || 'Untitled'}</div>
+          <div class="ai-search-result-snippet">${result.snippet || result.content || ''}</div>
+        </div>
+      `;
+      }).join('');
 
-    document.querySelectorAll('.ai-search-result').forEach(item => {
-      item.addEventListener('click', () => {
-        const url = item.getAttribute('data-url');
-        if (url && url !== '#') {
-          window.location.href = url;
-        }
+      document.querySelectorAll('.ai-search-result').forEach(function(item) {
+        item.addEventListener('click', function() {
+          const url = item.getAttribute('data-url');
+          if (url && url !== '#') {
+            window.location.href = url;
+          }
+        });
       });
-    });
+    }
   }
 
   aiSearchSubmit?.addEventListener('click', performAISearch);
@@ -176,15 +192,18 @@ import Search from "astro-pagefind/components/Search";
   });
 
   // close pagefind when searched result(link) clicked
-  document.addEventListener("click", (event) => {
-    if (event.target.classList.contains("pagefind-ui__result-link") || 
-        event.target.classList.contains("ai-search-result")) {
+  document.addEventListener("click", function(event) {
+    const target = event.target;
+    if (target && target.classList && 
+        (target.classList.contains("pagefind-ui__result-link") || 
+         target.classList.contains("ai-search-result"))) {
       closePagefind();
     }
   });
 
-  backdrop?.addEventListener("click", (event) => {
-    if (!event.target.closest("#pagefind-container")) {
+  backdrop?.addEventListener("click", function(event) {
+    const target = event.target;
+    if (target && target.closest && !target.closest("#pagefind-container")) {
       closePagefind();
     }
   });
