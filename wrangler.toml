@@ -1,0 +1,21 @@
+name = "blog_auth"
+compatibility_date = "2025-01-15"
+compatibility_flags = ["nodejs_compat"]
+
+[ai]
+binding = "AI"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "blog_auth_db"
+database_id = "local"
+
+[ai_search]
+binding = "AI_SEARCH"
+instance_name = "blog-instance"
+
+[ai_search_namespaces]
+binding = "AI_SEARCH_NAMESPACES"
+
+[site]
+bucket = "./dist"

@@ -7,28 +7,47 @@
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "db:generate": "wrangler d1 generate db blog-db",
+    "db:migrate:local": "wrangler d1 migrations apply db blog-db --local",
+    "db:migrate:remote": "wrangler d1 migrations apply db blog-db --remote",
+    "db:seed": "wrangler d1 execute db blog-db --local --file=src/db/seeds.sql",
+    "db:seed:remote": "wrangler d1 execute db blog-db --remote --file=src/db/seeds.sql",
+    "db:push": "drizzle-kit push --config=drizzle.config.ts",
+    "db:studio": "drizzle-kit studio --config=drizzle.config.ts",
+    "db:generate:schema": "drizzle-kit generate --config=drizzle.config.ts",
+    "cf:deploy": "wrangler deploy",
+    "cf:dev": "wrangler dev",
+    "index:content": "tsx scripts/index-content.ts"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
+    "@astrojs/cloudflare": "^12.0.0",
     "@astrojs/mdx": "^4.3.5",
     "@astrojs/rss": "^4.0.12",
     "@astrojs/sitemap": "^3.6.0",
+    "@cloudflare/workers-types": "^4.20250625.0",
     "@fontsource/geist-mono": "^5.2.7",
     "@fontsource/geist-sans": "^5.2.5",
+    "@lucide/astro": "^1.21.0",
     "@tailwindcss/vite": "^4.1.13",
     "astro": "^5.13.9",
     "astro-pagefind": "^1.8.5",
     "clsx": "^2.1.1",
+    "lucide": "^1.21.0",
     "tailwind-merge": "^3.3.1",
     "tailwindcss": "^4.1.13",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.2",
+    "drizzle-orm": "^0.43.1"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.18",
+    "drizzle-kit": "^0.31.4",
     "pagefind": "^1.4.0",
     "prettier": "^3.6.2",
     "prettier-plugin-astro": "^0.14.1",
-    "prettier-plugin-tailwindcss": "^0.6.14"
+    "prettier-plugin-tailwindcss": "^0.6.14",
+    "tsx": "^4.7.0",
+    "wrangler": "^4.27.0"
   }
 }

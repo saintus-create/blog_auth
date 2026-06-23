@@ -1,0 +1,74 @@
+/*
+ * Layout.css
+ * Page layout, spacing, and structural elements
+ */
+
+@layer utilities {
+  html {
+    overflow-y: auto;
+    color-scheme: light;
+    /* 8px grid: 96px (12 * 8px) instead of 100px */
+    scroll-padding-top: 96px;
+  }
+
+  html.dark {
+    color-scheme: dark;
+  }
+
+  html,
+  body {
+    @apply size-full;
+  }
+
+  body {
+    @apply flex flex-col;
+    /* Use design token colors instead of neutral classes */
+    background-color: rgb(var(--bg));
+    color: rgb(var(--text-1));
+  }
+
+  header {
+    @apply fixed left-0 right-0 top-0 z-50;
+    /* 8px grid: py-6 = 24px (3 * 8px) */
+    padding-top: 24px;
+    padding-bottom: 24px;
+    /* Use design token colors instead of opacity-based backgrounds */
+    background-color: rgb(var(--surface));
+    /* Removed saturate-200 and backdrop-blur-xs to prevent text rasterization */
+    /* These filters force GPU compositing which blurs text */
+  }
+
+  main {
+    @apply flex-1;
+    /* 8px grid: py-32 = 128px (16 * 8px) */
+    padding-top: 128px;
+    padding-bottom: 128px;
+  }
+
+  footer {
+    /* 8px grid: py-6 = 24px (3 * 8px) */
+    padding-top: 24px;
+    padding-bottom: 24px;
+    @apply text-sm;
+  }
+}
+
+/* Fixed animation to avoid text rasterization from transforms */
+.animate {
+  @apply opacity-0;
+  @apply transition-all duration-300 ease-out;
+  /* Removed -translate-y-3 transform to prevent GPU compositing on text */
+}
+
+.animate.show {
+  @apply opacity-100;
+  /* Removed translate-y-0 transform */
+}
+
+html #back-to-top {
+  @apply pointer-events-none opacity-0;
+}
+
+html.scrolled #back-to-top {
+  @apply pointer-events-auto opacity-100;
+}

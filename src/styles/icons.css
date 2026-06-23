@@ -1,0 +1,69 @@
+/*
+ * Icons.css
+ * Icon system - locked to 8px grid with optical alignment
+ */
+
+/* Icon system - locked to 8px grid */
+.icon {
+  display: inline-block;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+}
+
+.icon--sm { width: 16px; height: 16px; }
+.icon--lg { width: 24px; height: 24px; }
+
+/* Baseline-first icon alignment */
+.icon-baseline {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.125em;
+  flex-shrink: 0;
+}
+
+/* Icon + text button anatomy - Apple size system */
+.btn-icon-text {
+  @apply inline-flex items-center justify-center font-sans;
+  gap: 8px;
+  padding: var(--btn-padding-vertical) var(--btn-padding-horizontal);
+  font-size: var(--text-14);
+  line-height: 1;
+  min-width: var(--btn-min-width);
+  border-width: var(--btn-border-width);
+  border-radius: var(--btn-border-radius);
+}
+
+.btn-icon-text .icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* Nav item anatomy */
+.nav-item {
+  @apply inline-flex items-center;
+  gap: 8px;
+  padding: 8px 12px;
+  font-size: var(--text-14);
+  line-height: 1;
+}
+
+.nav-item .icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* Optical alignment helpers for specific icons */
+.icon-optical-adjust {
+  position: relative;
+  top: 0.5px;
+}
+
+/* Prevent icon blur: no opacity, no filters, no transforms on icon containers */
+.icon-container {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+}

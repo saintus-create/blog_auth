@@ -1,0 +1,53 @@
+/*
+ * Prose.css
+ * Article and prose styling
+ */
+
+@layer utilities {
+  article a {
+    @apply font-sans text-current underline;
+    /* 8px grid: underline-offset-1 = 4px (0.5 * 8px) instead of 3px */
+    text-underline-offset: 4px;
+    /* Use design token colors instead of opacity-based decorations */
+    text-decoration-color: rgb(var(--text-3));
+    @apply transition-colors duration-300 ease-in-out;
+  }
+  article a:hover {
+    /* Use design token colors instead of opacity-based colors */
+    color: rgb(var(--text-1));
+    text-decoration-color: rgb(var(--text-2));
+  }
+}
+
+/* shiki config */
+pre {
+  /* Use design token border color instead of opacity-based */
+  border-color: rgb(var(--border));
+  /* 8px grid: py-6 = 24px (3 * 8px) instead of py-5 = 20px */
+  padding-top: 24px;
+  padding-bottom: 24px;
+}
+
+/* copy code button on codeblocks - Apple size system */
+.copy-code {
+  @apply absolute grid place-content-center rounded-sm border text-center duration-300 ease-in-out;
+  background-color: rgb(var(--surface));
+  border-color: rgb(var(--border));
+  color: rgb(var(--text-1));
+  width: 32px;
+  height: 32px;
+  right: 12px;
+  top: 12px;
+  border-width: var(--btn-border-width);
+  border-radius: var(--btn-border-radius);
+}
+
+.copy-code:hover {
+  background-color: rgb(var(--bg));
+  color: rgb(var(--text-1));
+}
+
+.copy-code:active {
+  @apply transition-transform;
+  color: rgb(var(--text-2));
+}

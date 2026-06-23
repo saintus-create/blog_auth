@@ -1,0 +1,195 @@
+/*
+ * Optics.css
+ * Reading quality and visual correctness
+ * Focus on how the eye perceives typography, spacing, and composition
+ */
+
+:root {
+  /* Reading Quality */
+  --text-wrap-balance: balance;
+  --text-wrap-pretty: pretty;
+  
+  /* Typography Rendering */
+  --font-kerning: normal;
+  --text-rendering: optimizeLegibility;
+  
+  /* Font Features */
+  --font-feature-kern: 1;
+  --font-feature-liga: 1;
+  --font-feature-calt: 1;
+  --font-feature-tnum: 0;
+  
+  /* Punctuation */
+  --hanging-punctuation: none;
+  
+  /* Underline Quality */
+  --text-underline-offset: 0.12em;
+  --text-underline-thickness: 1px;
+  
+  /* Icon Alignment */
+  --icon-inline-offset: -0.05em;
+  --icon-baseline-offset: -0.125em;
+}
+
+/* Reading Quality */
+.text-wrap-balance {
+  text-wrap: var(--text-wrap-balance);
+}
+
+.text-wrap-pretty {
+  text-wrap: var(--text-wrap-pretty);
+}
+
+/* Typography Rendering */
+.optimize-legibility {
+  text-rendering: var(--text-rendering);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Font Features */
+.font-features-default {
+  font-feature-settings: 
+    "kern" var(--font-feature-kern),
+    "liga" var(--font-feature-liga),
+    "calt" var(--font-feature-calt);
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+.proportional-nums {
+  font-variant-numeric: proportional-nums;
+  font-feature-settings: "tnum" 0;
+}
+
+/* Punctuation */
+.hanging-punctuation-first {
+  hanging-punctuation: first;
+}
+
+.hanging-punctuation-last {
+  hanging-punctuation: last;
+}
+
+.hanging-punctuation-force-end {
+  hanging-punctuation: force-end;
+}
+
+.hanging-punctuation-first-last {
+  hanging-punctuation: first last;
+}
+
+.hanging-punctuation-force-end-first {
+  hanging-punctuation: force-end first;
+}
+
+/* Measures (reading line length) */
+.measure-sm {
+  max-width: 45ch;
+}
+
+.measure-md {
+  max-width: 65ch;
+}
+
+.measure-lg {
+  max-width: 75ch;
+}
+
+.measure-xl {
+  max-width: 85ch;
+}
+
+/* Icon Alignment */
+.icon-inline {
+  position: relative;
+  top: var(--icon-inline-offset);
+}
+
+.icon-baseline {
+  vertical-align: var(--icon-baseline-offset);
+}
+
+/* Underline Quality */
+.underline-quality {
+  text-underline-offset: var(--text-underline-offset);
+  text-underline-thickness: var(--text-underline-thickness);
+}
+
+.underline-offset-sm {
+  text-underline-offset: 0.08em;
+}
+
+.underline-offset-md {
+  text-underline-offset: 0.12em;
+}
+
+.underline-offset-lg {
+  text-underline-offset: 0.16em;
+}
+
+/* Optical Kerning */
+.optical-kerning {
+  font-kerning: var(--font-kerning);
+}
+
+.auto-kerning {
+  font-kerning: auto;
+}
+
+/* Letter Spacing for Headings */
+.tight-tracking {
+  letter-spacing: -0.02em;
+}
+
+.normal-tracking {
+  letter-spacing: 0;
+}
+
+.wide-tracking {
+  letter-spacing: 0.02em;
+}
+
+/* Line Height Optimization */
+.leading-tight {
+  line-height: 1.15;
+}
+
+.leading-normal {
+  line-height: 1.5;
+}
+
+.leading-relaxed {
+  line-height: 1.75;
+}
+
+/* Baseline Alignment */
+.baseline-shift-down {
+  position: relative;
+  top: 0.05em;
+}
+
+.baseline-shift-up {
+  position: relative;
+  top: -0.05em;
+}
+
+/* Optical Size */
+.optical-size-sm {
+  font-optical-sizing: 12px;
+}
+
+.optical-size-md {
+  font-optical-sizing: 16px;
+}
+
+.optical-size-lg {
+  font-optical-sizing: 24px;
+}
+
+.optical-size-xl {
+  font-optical-sizing: 32px;
+}

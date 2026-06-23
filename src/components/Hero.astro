@@ -1,0 +1,109 @@
+---
+import Container from "@components/Container.astro";
+import { SITE } from "@consts";
+
+type Props = {
+  eyebrow?: string;
+  headline: string;
+  copy: string;
+};
+
+const { eyebrow = SITE.TITLE, headline, copy } = Astro.props;
+---
+
+<section class="hero-section">
+  <Container>
+    <div class="hero-content">
+      {eyebrow && (
+        <p class="hero-eyebrow">
+          {eyebrow}
+        </p>
+      )}
+      <h1 class="hero-headline">
+        {headline}
+      </h1>
+      <p class="hero-copy">
+        {copy}
+      </p>
+    </div>
+  </Container>
+</section>
+
+<style>
+  .hero-section {
+    padding: 120px 0 80px;
+    text-align: center;
+    background-color: #C1C1C1;
+  }
+
+  .hero-content {
+    max-width: 980px;
+    margin: 0 auto;
+  }
+
+  .hero-eyebrow {
+    font-size: 40px;
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    color: #282828;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-headline {
+    font-size: 96px;
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: #282828;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-copy {
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    color: #282828;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  /* Tablet breakpoint */
+  @media (max-width: 1068px) {
+    .hero-section {
+      padding: 92px 0 60px;
+    }
+
+    .hero-eyebrow {
+      font-size: 21px;
+    }
+
+    .hero-headline {
+      font-size: 72px;
+    }
+
+    .hero-copy {
+      font-size: 17px;
+    }
+  }
+
+  /* Mobile breakpoint */
+  @media (max-width: 734px) {
+    .hero-section {
+      padding: 60px 0 40px;
+    }
+
+    .hero-eyebrow {
+      font-size: 21px;
+    }
+
+    .hero-headline {
+      font-size: 32px;
+    }
+
+    .hero-copy {
+      font-size: 17px;
+    }
+  }
+</style>

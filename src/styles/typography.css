@@ -1,0 +1,79 @@
+/*
+ * Typography.css
+ * Typography scale, font families, and text rendering
+ */
+
+@theme {
+  --font-sans: Geist Sans, ui-sans-serif, system-ui, sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-mono: Geist Mono, ui-monospace, SFMono-Regular, Menlo, Monaco,
+    Consolas, 'Liberation Mono', 'Courier New', monospace;
+  
+  /* 8px Grid System - Base spacing unit */
+  --spacing-unit: 8px;
+  /* Typography scale based on 8px grid */
+  --font-size-base: 16px;
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+}
+
+html {
+  /* Font smoothing for better text rendering */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  @apply font-sans antialiased;
+  /* Enhanced font smoothing for macOS */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Baseline alignment and line-height discipline using design tokens */
+  line-height: var(--lh-body);
+  font-size: var(--text-16);
+}
+
+article {
+  /* Ensure text rendering isolation */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Enforce strict typography scale */
+  font-size: var(--text-16);
+  line-height: var(--lh-body);
+}
+
+/* Input + form field typography - locked to grid system */
+.input-field,
+.textarea-field,
+.select-field {
+  font-size: var(--text-14);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.input-field {
+  line-height: 1.4;
+}
+
+.textarea-field {
+  line-height: var(--lh-body);
+}
+
+.select-field {
+  line-height: 1.4;
+}
+
+/* Label hierarchy - no opacity, solid tokens only */
+.label-text {
+  font-size: var(--text-14);
+  font-weight: 500;
+  color: rgb(var(--text-1));
+  margin-bottom: var(--space-4);
+}
+
+.label-caption {
+  font-size: var(--text-12);
+  color: rgb(var(--text-3));
+  margin-top: var(--space-4);
+}

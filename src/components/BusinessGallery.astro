@@ -1,0 +1,191 @@
+<section class="section section-gallery">
+  <div id="hub-gallery" class="gallery with-paddlenav gallery-underdogs" aria-label="Hub Gallery">
+    <div class="scroll-container">
+      <ul role="list" class="item-container">
+        <li id="hub-gallery-item-1" class="gallery-item gallery-item-business" role="listitem">
+          <div class="card card-animate card-video">
+            <div class="video-item-image">
+              <picture class="overview-hub-success-story-business">
+                <img src="/images/business/hub_success_story_business.jpg" alt="A lineup of business-related apps and tools including iCloud, Calendar, Maps, Apple Business, Mail, Apple Care, and App Store">
+              </picture>
+            </div>
+            <div class="tile-content">
+              <h2 class="typography-eyebrow">
+                <picture class="overview-logo-business">
+                  <img src="/images/business/logo_business.png" alt="Apple Business">
+                </picture>
+              </h2>
+              <h3 class="gallery-title typography-headline-reduced">The tools you need to run and grow <br>your business. All in one place.</h3>
+              <div class="buttons">
+                <a href="https://business.apple.com" aria-label="Learn more, Apple Business" class="icon-wrapper button button-super">
+                  <span class="icon-copy">Learn more</span>
+                  <span class="icon icon-after false"></span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li id="hub-gallery-item-2" class="gallery-item gallery-item-smb-tools" role="listitem">
+          <div class="card card-animate card-video">
+            <div class="video-item-image">
+              <picture class="overview-hub-success-story-webinar">
+                <img src="/images/business/hub_success_story_webinar.jpg" alt="Presenter speaks while referencing an iPad, and a large presentation screen displays various business app icons.">
+              </picture>
+            </div>
+            <div class="tile-content">
+              <h2 class="typography-eyebrow">Small Business</h2>
+              <h3 class="gallery-title typography-headline-reduced">Discover the latest Apple tools, <br class="large">and hear from businesses like yours.</h3>
+              <div class="buttons">
+                <a href="#" aria-label="Watch the video, Small Business" class="icon-wrapper video-cta button button-super nowrap">
+                  <span class="icon-copy">Watch the video</span>
+                  <span class="icon icon-after icon-playcircle"></span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .section-gallery {
+    padding: 80px 0;
+    background-color: #C1C1C1;
+  }
+
+  .gallery {
+    position: relative;
+  }
+
+  .scroll-container {
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+  }
+
+  .item-container {
+    display: flex;
+    gap: 24px;
+    padding: 0 24px;
+    list-style: none;
+    margin: 0;
+  }
+
+  .gallery-item {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    width: 100%;
+    max-width: 600px;
+  }
+
+  .card {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: #E5E5E5;
+  }
+
+  .card-video {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .video-item-image {
+    width: 100%;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+  }
+
+  .video-item-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .tile-content {
+    padding: 32px;
+  }
+
+  .typography-eyebrow {
+    margin: 0 0 16px 0;
+  }
+
+  .typography-eyebrow img {
+    height: 32px;
+    width: auto;
+  }
+
+  .gallery-title {
+    margin: 0 0 24px 0;
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 1.2;
+    color: #282828;
+  }
+
+  .buttons {
+    display: flex;
+    gap: 16px;
+  }
+
+  .button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background-color: #282828;
+    color: #E5E5E5;
+    border: none;
+    border-radius: 980px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+
+  .button:hover {
+    opacity: 0.9;
+  }
+
+  .button-super {
+    padding: 14px 28px;
+    font-size: 16px;
+  }
+
+  .nowrap {
+    white-space: nowrap;
+  }
+
+  .icon-after {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  @media (max-width: 734px) {
+    .section-gallery {
+      padding: 48px 0;
+    }
+
+    .item-container {
+      padding: 0 16px;
+      gap: 16px;
+    }
+
+    .gallery-title {
+      font-size: 20px;
+    }
+
+    .tile-content {
+      padding: 24px;
+    }
+
+    .button-super {
+      padding: 12px 20px;
+      font-size: 14px;
+    }
+  }
+</style>

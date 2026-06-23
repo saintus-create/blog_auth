@@ -1,0 +1,113 @@
+/*
+ * Tokens.css
+ * Design tokens - colors, spacing, typography scale, and other foundational values
+ */
+
+:root {
+  /* Typography scale (rem-based, stable rendering) */
+  --text-12: 0.75rem;
+  --text-14: 0.875rem;
+  --text-16: 1rem;
+  --text-20: 1.25rem;
+  --text-24: 1.5rem;
+  --text-32: 2rem;
+  --text-40: 2.5rem;
+  --text-56: 3.5rem;
+
+  /* Line heights */
+  --lh-tight: 1.15;
+  --lh-heading: 1.25;
+  --lh-body: 1.6;
+
+  /* Spacing (8px system) */
+  --space-4: 0.25rem;
+  --space-8: 0.5rem;
+  --space-16: 1rem;
+  --space-24: 1.5rem;
+  --space-32: 2rem;
+  --space-48: 3rem;
+  --space-64: 4rem;
+
+  /* Radius - matched to icon stroke language */
+  --r-sm: 6px;
+  --r-md: 12px;
+  --r-lg: 18px;
+
+  /* Icon stroke weight tokens - consistent visual weight */
+  --icon-stroke: 1.5px;
+  --icon-stroke-bold: 2px;
+
+  /* Contemporary CSS features - Text Box Trim & Edge */
+  --text-box-trim-start: 0.5em;
+  --text-box-trim-end: 0.5em;
+  --text-box-edge: cap alphabetic;
+
+  /* Modern CSS features */
+  --field-sizing: content; /* Auto-sizing form fields */
+  --anchor-position: normal; /* Anchor positioning */
+  --container-name: blog-content; /* Container queries */
+  --transition-timing: cubic-bezier(0.4, 0, 0.2, 1); /* Modern easing */
+
+  /* Apple button size system */
+  --btn-padding-horizontal: 22px;
+  --btn-padding-vertical: 12px;
+  --btn-min-width: 70px;
+  --btn-margin-horizontal: 18px;
+  --btn-margin-vertical: 18px;
+  --btn-border-width: 1px;
+  --btn-border-radius: 980px;
+
+  /* Medium button sizes */
+  --btn-padding-horizontal-md: 11px;
+  --btn-padding-vertical-md: 4px;
+  --btn-min-width-md: 45px;
+  --btn-margin-horizontal-md: 10px;
+  --btn-margin-vertical-md: 10px;
+
+  /* Colors - Two color system: #E5E5E5 and #1C1C1C */
+  --bg: 229 229 229; /* #E5E5E5 */
+  --surface: 28 28 28; /* #1C1C1C */
+
+  --text-1: 28 28 28;
+  --text-2: 28 28 28; /* #1C1C1C */
+  --text-3: 229 229 229; /* #E5E5E5 */
+
+  --border: 28 28 28; /* #1C1C1C */
+
+  /* Astro code syntax colors */
+  --astro-code-foreground: #09090b;
+  --astro-code-background: #fafafa;
+  --astro-code-token-comment: #a19595;
+  --astro-code-token-keyword: #f47067;
+  --astro-code-token-string: #00a99a;
+  --astro-code-token-function: #429996;
+  --astro-code-token-constant: #2b70c5;
+  --astro-code-token-parameter: #4e8fdf;
+  --astro-code-token-string-expression: #ae42a0;
+  --astro-code-token-punctuation: #8996a3;
+  --astro-code-token-link: #8d85ff;
+}
+
+.dark {
+  --bg: 229 229 229; /* #E5E5E5 */
+  --surface: 28 28 28; /* #1C1C1C */
+
+  --text-1: 28 28 28;
+  --text-2: 28 28 28; /* #1C1C1C */
+  --text-3: 229 229 229; /* #E5E5E5 */
+
+  --border: 28 28 28; /* #1C1C1C */
+
+  /* Astro code syntax colors */
+  --astro-code-foreground: #fafafa;
+  --astro-code-background: #09090b;
+  --astro-code-token-comment: #a19595;
+  --astro-code-token-keyword: #f47067;
+  --astro-code-token-string: #00a99a;
+  --astro-code-token-function: #6eafad;
+  --astro-code-token-constant: #b3cfeb;
+  --astro-code-token-parameter: #4e8fdf;
+  --astro-code-token-string-expression: #bf7db6;
+  --astro-code-token-punctuation: #8996a3;
+  --astro-code-token-link: #8d85ff;
+}
