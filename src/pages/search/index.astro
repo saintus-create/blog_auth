@@ -51,7 +51,7 @@ const description = "Search blog posts and projects with AI-powered semantic sea
   </Container>
 </Layout>
 
-<script>
+<script lang="ts">
   const searchInput = document.getElementById("search-input") as HTMLInputElement | null;
   const searchButton = document.getElementById("search-button") as HTMLButtonElement | null;
   const resultsContainer = document.getElementById("results") as HTMLDivElement | null;
@@ -108,10 +108,12 @@ const description = "Search blog posts and projects with AI-powered semantic sea
         `;
       } else {
         noResults?.classList.remove("hidden");
-        noResults.innerHTML = `
-          <p class="text-lg mb-2">No AI results</p>
-          <p class="text-sm">The AI search could not find relevant content</p>
-        `;
+        if (noResults) {
+          noResults.innerHTML = `
+            <p class="text-lg mb-2">No AI results</p>
+            <p class="text-sm">The AI search could not find relevant content</p>
+          `;
+        }
       }
     } catch (err) {
       console.error("Search error:", err);
