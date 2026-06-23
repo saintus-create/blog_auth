@@ -51,6 +51,97 @@
     padding-bottom: 24px;
     @apply text-sm;
   }
+
+  /* Systematic rules to prevent asymmetry and disproportion */
+  * {
+    box-sizing: border-box;
+  }
+
+  /* Ensure all containers respect 8px grid */
+  .container,
+  [class*="container"] {
+    padding-left: 16px;
+    padding-right: 16px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Ensure all flex containers have consistent gap */
+  .flex {
+    gap: 16px;
+  }
+
+  /* Ensure all grid containers have consistent gap */
+  .grid {
+    gap: 16px;
+  }
+
+  /* Ensure all sections have consistent vertical spacing */
+  section {
+    padding-top: 64px;
+    padding-bottom: 64px;
+  }
+
+  /* Ensure all images maintain aspect ratio */
+  img {
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  /* Ensure all buttons have consistent sizing */
+  button {
+    min-height: 44px;
+    padding: 12px 22px;
+  }
+
+  /* Ensure all inputs have consistent sizing */
+  input,
+  select,
+  textarea {
+    min-height: 44px;
+    padding: 12px 16px;
+  }
+
+  /* Ensure all text content respects max-width for readability */
+  article,
+  .content,
+  [class*="content"] {
+    max-width: 65ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Ensure all centered elements are truly centered */
+  .text-center,
+  [class*="center"] {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Ensure all cards have consistent spacing */
+  [class*="card"],
+  [class*="Card"] {
+    padding: 24px;
+    border-radius: 12px;
+  }
+
+  /* Prevent text overflow */
+  * {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  }
+
+  /* Ensure consistent line heights */
+  body {
+    line-height: 1.6;
+  }
+
+  /* Ensure consistent font size base */
+  body {
+    font-size: 16px;
+  }
 }
 
 /* Fixed animation to avoid text rasterization from transforms */
