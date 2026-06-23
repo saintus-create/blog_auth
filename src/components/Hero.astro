@@ -31,7 +31,7 @@ const { eyebrow = SITE.TITLE, headline, copy } = Astro.props;
 
 <style>
   .hero-section {
-    padding: 120px 0 80px;
+    padding: 128px 0 96px;
     text-align: center;
     background-color: #C1C1C1;
   }
@@ -39,6 +39,7 @@ const { eyebrow = SITE.TITLE, headline, copy } = Astro.props;
   .hero-content {
     max-width: 980px;
     margin: 0 auto;
+    padding: 0 16px;
   }
 
   .hero-eyebrow {
@@ -47,7 +48,7 @@ const { eyebrow = SITE.TITLE, headline, copy } = Astro.props;
     line-height: 1.1;
     letter-spacing: -0.015em;
     color: #282828;
-    margin-bottom: 0.5rem;
+    margin-bottom: 8px;
   }
 
   .hero-headline {
@@ -56,7 +57,7 @@ const { eyebrow = SITE.TITLE, headline, copy } = Astro.props;
     line-height: 1.05;
     letter-spacing: -0.02em;
     color: #282828;
-    margin-bottom: 1.5rem;
+    margin-bottom: 24px;
   }
 
   .hero-copy {
@@ -72,38 +73,38 @@ const { eyebrow = SITE.TITLE, headline, copy } = Astro.props;
   /* Tablet breakpoint */
   @media (max-width: 1068px) {
     .hero-section {
-      padding: 92px 0 60px;
+      padding: 96px 0 64px;
     }
 
     .hero-eyebrow {
-      font-size: 21px;
+      font-size: 24px;
     }
 
     .hero-headline {
-      font-size: 72px;
+      font-size: 64px;
     }
 
     .hero-copy {
-      font-size: 17px;
+      font-size: 18px;
     }
   }
 
   /* Mobile breakpoint */
   @media (max-width: 734px) {
     .hero-section {
-      padding: 60px 0 40px;
+      padding: 64px 0 48px;
     }
 
     .hero-eyebrow {
-      font-size: 21px;
+      font-size: 18px;
     }
 
     .hero-headline {
-      font-size: 32px;
+      font-size: 36px;
     }
 
     .hero-copy {
-      font-size: 17px;
+      font-size: 16px;
     }
   }
 </style>
