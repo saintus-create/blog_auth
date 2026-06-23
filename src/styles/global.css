@@ -13,6 +13,7 @@
 @import './prose.css';
 @import './optics.css';
 @import './effects.css';
+@import './utilities.css';
 
 /*
   The default border color has changed to `currentColor` in Tailwind CSS v4,
