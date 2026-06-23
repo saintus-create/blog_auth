@@ -6,6 +6,7 @@
 
 /* Import modular CSS files */
 @import './tokens.css';
+@import './base.css';
 @import './typography.css';
 @import './layout.css';
 @import './composition.css';
