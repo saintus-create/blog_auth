@@ -17,5 +17,4 @@ instance_name = "blog-instance"
 [[ai_search_namespaces]]
 binding = "AI_SEARCH_NAMESPACES"
 
-[site]
-bucket = "./dist"
+main = "./dist/_worker.js"
