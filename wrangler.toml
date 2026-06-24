@@ -10,12 +10,9 @@ binding = "DB"
 database_name = "blog_auth_db"
 database_id = "local"
 
-[ai_search]
-binding = "AI_SEARCH"
-instance_name = "blog-instance"
+ai_search = [{binding = "AI_SEARCH", instance_name = "blog-instance"}]
 
-[ai_search_namespaces]
-binding = "AI_SEARCH_NAMESPACES"
+ai_search_namespaces = [{binding = "AI_SEARCH_NAMESPACES"}]
 
 [site]
 bucket = "./dist"
