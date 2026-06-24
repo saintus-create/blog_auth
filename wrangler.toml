@@ -10,6 +10,10 @@ binding = "DB"
 database_name = "blog_auth_db"
 database_id = "local"
 
+[[kv_namespaces]]
+binding = "SESSION"
+id = "local"
+
 [[ai_search]]
 binding = "AI_SEARCH"
 instance_name = "blog-instance"
