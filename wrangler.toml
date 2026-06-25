@@ -17,7 +17,7 @@ id = "29c52fcfab3e4629acc5633774cc2c5a"
 
 [[ai_search]]
 binding = "AI_SEARCH"
-instance_name = "blog-instance"
+instance_name = "doc"
 
 [[ai_search_namespaces]]
 binding = "AI_SEARCH_NAMESPACES"
