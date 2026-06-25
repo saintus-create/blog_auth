@@ -1,6 +1,5 @@
-name = "blog_auth"
+name = "auth"
 main = "./dist/_worker.js"
-
 compatibility_date = "2025-01-15"
 compatibility_flags = ["nodejs_compat"]
 
@@ -10,11 +9,11 @@ binding = "AI"
 [[d1_databases]]
 binding = "DB"
 database_name = "blog_auth_db"
-database_id = "local"
+database_id = "77df5c53-498a-48b0-b8e7-406c3d5b9fd2"
 
 [[kv_namespaces]]
 binding = "SESSION"
-id = "local"
+id = "29c52fcfab3e4629acc5633774cc2c5a"
 
 [[ai_search]]
 binding = "AI_SEARCH"
