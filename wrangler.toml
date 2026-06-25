@@ -1,4 +1,6 @@
 name = "blog_auth"
+main = "./dist/_worker.js"
+
 compatibility_date = "2025-01-15"
 compatibility_flags = ["nodejs_compat"]
 
@@ -21,5 +23,3 @@ instance_name = "blog-instance"
 [[ai_search_namespaces]]
 binding = "AI_SEARCH_NAMESPACES"
 namespace = "default"
-
-main = "./dist/_worker.js"
