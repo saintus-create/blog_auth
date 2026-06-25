@@ -15,7 +15,8 @@ export const POST: APIRoute = async (context) => {
       );
     }
 
-    const aiSearch = (Astro.locals.runtime?.env as Record<string, unknown>)?.AI_SEARCH as {
+    const platform = (context as any).platform;
+    const aiSearch = platform?.env?.AI_SEARCH as {
       chatCompletion: (params: {
         messages: Array<{ role: string; content: string }>;
         maxTokens?: number;

@@ -5,7 +5,8 @@ export const prerender = false;
 
 export const POST: APIRoute = async (context) => {
   try {
-    const aiSearch = (Astro.locals.runtime?.env as Record<string, unknown>)?.AI_SEARCH as {
+    const platform = (context as any).platform;
+    const aiSearch = platform?.env?.AI_SEARCH as {
       search?: unknown;
       chatCompletion?: unknown;
       indexDocument?: (params: {
@@ -34,7 +35,7 @@ export const POST: APIRoute = async (context) => {
     for (const entry of allEntries) {
       const content = entry.body || "";
       const result = await aiSearch.indexDocument({
-        instance: "doc",
+        instance: "blog-instance",
         content,
         filename: `${entry.id}.md`,
         contentType: "text/markdown",

@@ -15,7 +15,8 @@ export const GET: APIRoute = async (context) => {
   }
 
   try {
-    const aiSearch = (Astro.locals.runtime?.env as Record<string, unknown>)?.AI_SEARCH as {
+    const platform = (context as any).platform;
+    const aiSearch = platform?.env?.AI_SEARCH as {
       search: (params: { query: string; maxNumResults?: number }) => Promise<{
         response?: string;
         data?: Array<{
@@ -63,7 +64,8 @@ export const POST: APIRoute = async (context) => {
       );
     }
 
-    const aiSearch = (Astro.locals.runtime?.env as Record<string, unknown>)?.AI_SEARCH as {
+    const platform = (context as any).platform;
+    const aiSearch = platform?.env?.AI_SEARCH as {
       search: (params: { query: string; maxNumResults?: number }) => Promise<unknown>;
     };
 
