@@ -3,6 +3,12 @@ main = "./dist/_worker.js"
 compatibility_date = "2025-01-15"
 compatibility_flags = ["nodejs_compat"]
 
+# Required for @astrojs/cloudflare v12+ — the generated Worker uses env.ASSETS
+# to serve static files. Without this section the Worker throws on every request.
+[assets]
+directory = "./dist"
+binding = "ASSETS"
+
 [ai]
 binding = "AI"
 
