@@ -7,7 +7,7 @@ import cloudflare from "@astrojs/cloudflare";
 import { virtualMdxPlugin } from "./src/plugins/virtual-mdx.ts";
 
 export default defineConfig({
-  site: "https://astro-micro.vercel.app",
+  site: "https://auth.castillo-james.workers.dev",
   integrations: [sitemap(), mdx(), pagefind()],
   adapter: cloudflare({
     imageService: "compile",
