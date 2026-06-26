@@ -1,18 +1,24 @@
 /*
  * Layout.css
  * Page layout, spacing, and structural elements
+ * Spatial display optimized: Meta AI glasses, Apple Vision Pro
  */
 
 @layer utilities {
   html {
     overflow-y: auto;
     color-scheme: light;
-    /* 8px grid: 96px (12 * 8px) instead of 100px */
     scroll-padding-top: 96px;
   }
 
   html.dark {
     color-scheme: dark;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    html:not(.light) {
+      color-scheme: dark;
+    }
   }
 
   html,
@@ -22,47 +28,54 @@
 
   body {
     @apply flex flex-col;
-    /* Use design token colors instead of neutral classes */
     background-color: rgb(var(--bg));
     color: rgb(var(--text-1));
+    /* Spatial display text rendering — crisp on lens displays */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    /* Body uses spatial-minimum font size (18px) */
+    font-size: var(--text-16);
+    line-height: var(--lh-body);
   }
 
   header {
     @apply fixed left-0 right-0 top-0 z-50;
-    /* 8px grid: py-6 = 24px (3 * 8px) */
-    padding-top: 24px;
-    padding-bottom: 24px;
-    /* Use design token colors instead of opacity-based backgrounds */
+    padding-top: 20px;
+    padding-bottom: 20px;
     background-color: rgb(var(--surface));
-    /* Removed saturate-200 and backdrop-blur-xs to prevent text rasterization */
-    /* These filters force GPU compositing which blurs text */
+    /* Min height meets spatial touch/gaze target requirement */
+    min-height: var(--target-min);
+    display: flex;
+    align-items: center;
+  }
+
+  header * {
+    /* Text on dark surface uses text-3 (light) */
+    color: rgb(var(--text-3));
   }
 
   main {
     @apply flex-1;
-    /* 8px grid: py-32 = 128px (16 * 8px) */
-    padding-top: 128px;
-    padding-bottom: 128px;
+    padding-top: 120px;
+    padding-bottom: 120px;
   }
 
   footer {
-    /* 8px grid: py-6 = 24px (3 * 8px) */
     padding-top: 24px;
     padding-bottom: 24px;
-    @apply text-sm;
+    font-size: var(--text-14);
   }
 }
 
-/* Fixed animation to avoid text rasterization from transforms */
+/* Entrance animation — fade only, no translate (avoids text rasterization on GPU) */
 .animate {
   @apply opacity-0;
-  @apply transition-all duration-300 ease-out;
-  /* Removed -translate-y-3 transform to prevent GPU compositing on text */
+  @apply transition-opacity duration-300 ease-out;
 }
 
 .animate.show {
   @apply opacity-100;
-  /* Removed translate-y-0 transform */
 }
 
 html #back-to-top {
