@@ -6,363 +6,387 @@ import Search from "astro-pagefind/components/Search";
   <div
     transition:persist
     id="backdrop"
-    class="bg-[rgba(0, 0, 0, 0.5] invisible fixed left-0 top-0 z-50 flex h-screen w-full justify-center p-6 backdrop-blur-xs"
+    class="invisible fixed left-0 top-0 z-50 flex h-screen w-full items-start justify-center p-6"
+    style="background: rgba(0,0,0,0.6); backdrop-filter: blur(8px);"
   >
     <div
       id="pagefind-container"
-      class="m-0 flex h-fit max-h-[80%] w-full max-w-(--breakpoint-sm) flex-col overflow-auto rounded-sm border border-[#C1C1C1] bg-[#E5E5E5] p-2 px-4 py-3 shadow-lg"
+      style="
+        margin-top: 80px;
+        width: 100%;
+        max-width: 600px;
+        max-height: 80vh;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        border-radius: 16px;
+        border: 1.5px solid rgb(var(--border));
+        background: rgb(var(--bg));
+        box-shadow: 0 24px 64px rgba(0,0,0,0.3);
+      "
     >
-      <div class="search-mode-toggle mb-2 flex gap-2">
-        <button id="keyword-search-btn" class="mode-btn active">Keyword Search</button>
-        <button id="ai-search-btn" class="mode-btn">AI Search</button>
+      <!-- Tab bar -->
+      <div
+        style="
+          display: flex;
+          gap: 0;
+          border-bottom: 1.5px solid rgb(var(--border));
+          flex-shrink: 0;
+        "
+      >
+        <button
+          id="keyword-search-btn"
+          class="search-tab-btn search-tab-active"
+          aria-label="Keyword search"
+        >
+          Keyword
+        </button>
+        <button
+          id="ai-search-btn"
+          class="search-tab-btn"
+          aria-label="AI search"
+        >
+          Ask AI
+        </button>
+        <div style="flex:1;"></div>
+        <button
+          id="close-search-btn"
+          aria-label="Close search"
+          style="
+            padding: 0 20px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: rgb(var(--text-1));
+            font-size: 1.25rem;
+            opacity: 0.5;
+          "
+        >✕</button>
       </div>
-      
-      <div id="keyword-search-panel">
+
+      <!-- Keyword panel -->
+      <div id="keyword-search-panel" style="overflow-y: auto; padding: 12px 16px 8px;">
         <Search
           id="search"
           className="pagefind-ui"
           uiOptions={{
             showImages: false,
-            excerptLength: 15,
+            excerptLength: 20,
             resetStyles: false,
           }}
         />
       </div>
-      
-      <div id="ai-search-panel" class="hidden">
-        <div class="ai-search-input-wrapper">
+
+      <!-- AI panel -->
+      <div id="ai-search-panel" style="display:none; overflow-y: auto; padding: 16px;">
+        <div style="display:flex; gap:8px; margin-bottom:12px;">
           <input
             type="text"
             id="ai-search-input"
-            placeholder="Ask a question about the content..."
-            class="ai-search-input"
+            placeholder="Ask anything about the content…"
+            autocomplete="off"
+            style="
+              flex: 1;
+              padding: 12px 16px;
+              border: 1.5px solid rgb(var(--border));
+              border-radius: 980px;
+              font-size: 1rem;
+              background: rgb(var(--bg));
+              color: rgb(var(--text-1));
+              outline: none;
+              min-height: 48px;
+            "
           />
-          <button id="ai-search-submit" class="ai-search-submit">Search</button>
+          <button
+            id="ai-search-submit"
+            style="
+              padding: 12px 20px;
+              background: rgb(var(--surface));
+              color: rgb(var(--text-3));
+              border: none;
+              border-radius: 980px;
+              cursor: pointer;
+              font-size: 0.9375rem;
+              font-weight: 600;
+              min-height: 48px;
+              white-space: nowrap;
+            "
+          >Search</button>
         </div>
-        <div id="ai-search-results" class="ai-search-results"></div>
+        <div id="ai-search-results"></div>
       </div>
-      
-      <div class="mr-2 pb-1 pt-4 text-right text-xs dark:prose-invert">
-        Press <span class="prose text-xs dark:prose-invert"
-          ><kbd class="">Esc</kbd></span
-        > or click anywhere to close
+
+      <!-- Footer hint -->
+      <div
+        style="
+          padding: 8px 16px;
+          text-align: right;
+          font-size: 0.8125rem;
+          color: rgb(var(--text-1));
+          opacity: 0.45;
+          border-top: 1px solid rgb(var(--border));
+          flex-shrink: 0;
+        "
+      >
+        Press <kbd style="font-family:monospace; font-size:0.75rem; padding:1px 4px; border:1px solid rgb(var(--border)); border-radius:4px;">Esc</kbd> or click outside to close
       </div>
     </div>
   </div>
 </aside>
 
 <script is:inline>
-  const magnifyingGlass = document.getElementById("magnifying-glass");
   const backdrop = document.getElementById("backdrop");
   const keywordSearchBtn = document.getElementById("keyword-search-btn");
   const aiSearchBtn = document.getElementById("ai-search-btn");
+  const closeSearchBtn = document.getElementById("close-search-btn");
   const keywordSearchPanel = document.getElementById("keyword-search-panel");
   const aiSearchPanel = document.getElementById("ai-search-panel");
   const aiSearchInput = document.getElementById("ai-search-input");
   const aiSearchSubmit = document.getElementById("ai-search-submit");
   const aiSearchResults = document.getElementById("ai-search-results");
 
-  function openPagefind() {
-    const searchDiv = document.getElementById("search");
-    if (!searchDiv) return;
-    const search = searchDiv.querySelector("input");
-    if (!search) return;
-    setTimeout(() => {
-      search.focus();
-    }, 0);
-    backdrop?.classList.remove("invisible");
-    backdrop?.classList.add("visible");
-  }
-
-  function closePagefind() {
-    const search = document.getElementById("search");
-    if (!search) return;
-    const searchInput = search.querySelector("input");
-    if (searchInput) {
-      searchInput.value = "";
+  function openSearch(mode) {
+    backdrop.classList.remove("invisible");
+    backdrop.classList.add("visible");
+    if (mode === "ai") {
+      switchToAI();
+    } else {
+      switchToKeyword();
     }
-    backdrop?.classList.remove("visible");
-    backdrop?.classList.add("invisible");
   }
 
-  // Toggle between keyword and AI search
-  keywordSearchBtn?.addEventListener("click", () => {
-    keywordSearchBtn?.classList.add("active");
-    aiSearchBtn?.classList.remove("active");
-    keywordSearchPanel?.classList.remove("hidden");
-    aiSearchPanel?.classList.add("hidden");
-  });
+  function closeSearch() {
+    backdrop.classList.remove("visible");
+    backdrop.classList.add("invisible");
+    const searchInput = document.querySelector("#search input");
+    if (searchInput) searchInput.value = "";
+    if (aiSearchInput) aiSearchInput.value = "";
+    if (aiSearchResults) aiSearchResults.innerHTML = "";
+  }
 
-  aiSearchBtn?.addEventListener("click", () => {
-    aiSearchBtn?.classList.add("active");
-    keywordSearchBtn?.classList.remove("active");
-    aiSearchPanel?.classList.remove("hidden");
-    keywordSearchPanel?.classList.add("hidden");
-    aiSearchInput?.focus();
-  });
+  function switchToKeyword() {
+    keywordSearchBtn.classList.add("search-tab-active");
+    aiSearchBtn.classList.remove("search-tab-active");
+    keywordSearchPanel.style.display = "";
+    aiSearchPanel.style.display = "none";
+    const searchInput = document.querySelector("#search input");
+    if (searchInput) setTimeout(() => searchInput.focus(), 50);
+  }
 
-  // AI search functionality
+  function switchToAI() {
+    aiSearchBtn.classList.add("search-tab-active");
+    keywordSearchBtn.classList.remove("search-tab-active");
+    aiSearchPanel.style.display = "";
+    keywordSearchPanel.style.display = "none";
+    if (aiSearchInput) setTimeout(() => aiSearchInput.focus(), 50);
+  }
+
+  function escapeHtml(str) {
+    const d = document.createElement("div");
+    d.textContent = str;
+    return d.innerHTML;
+  }
+
   async function performAISearch() {
     const query = aiSearchInput?.value?.trim();
     if (!query) return;
 
-    if (aiSearchResults) {
-      aiSearchResults.innerHTML = '<div class="ai-search-loading">Searching...</div>';
-    }
+    aiSearchResults.innerHTML = `
+      <div style="padding:24px;text-align:center;opacity:0.6;font-size:0.9375rem;">
+        Searching…
+      </div>
+    `;
 
     try {
-      const response = await fetch('/api/ai-search', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ query }),
+      const res = await fetch("/api/ai-chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: [{ role: "user", content: query }] }),
       });
 
-      if (!response.ok) {
-        throw new Error('Search failed');
+      if (!res.ok) throw new Error(res.statusText);
+
+      const data = await res.json();
+      const answer = data.choices?.[0]?.message?.content || data.response || "";
+      const snippets = data.data ?? [];
+
+      let html = "";
+
+      if (answer) {
+        html += `
+          <div style="
+            padding: 16px;
+            border-radius: 12px;
+            background: rgb(var(--surface));
+            color: rgb(var(--text-3));
+            margin-bottom: 16px;
+            font-size: 1rem;
+            line-height: 1.75;
+          ">
+            <div style="font-weight:600;margin-bottom:8px;font-size:0.8125rem;opacity:0.7;text-transform:uppercase;letter-spacing:0.05em;">AI Answer</div>
+            ${escapeHtml(answer)}
+          </div>
+        `;
       }
 
-      const data = await response.json();
-      displayAISearchResults(data);
-    } catch (error) {
-      console.error('AI search error:', error);
-      if (aiSearchResults) {
-        aiSearchResults.innerHTML = '<div class="ai-search-error">Search failed. Please try again.</div>';
+      if (snippets.length > 0) {
+        html += `<div style="font-weight:600;margin-bottom:8px;font-size:0.8125rem;opacity:0.6;text-transform:uppercase;letter-spacing:0.05em;">Related</div>`;
+        snippets.forEach(function(s) {
+          const filename = s.content?.filename || s.attributes?.filename || "";
+          const text = s.content?.text || "";
+          const url = s.attributes?.url || (filename ? "/" + filename.replace(/\.md$/, "") : "");
+          html += `
+            <div
+              class="ai-result-item"
+              data-url="${escapeHtml(String(url))}"
+              style="
+                padding: 12px 14px;
+                border-radius: 10px;
+                border: 1px solid rgb(var(--border));
+                margin-bottom: 8px;
+                cursor: pointer;
+              "
+            >
+              ${filename ? `<div style="font-weight:600;font-size:0.9375rem;margin-bottom:4px;">${escapeHtml(filename)}</div>` : ""}
+              ${text ? `<div style="font-size:0.875rem;opacity:0.7;line-height:1.6;">${escapeHtml(text.slice(0, 180))}${text.length > 180 ? "…" : ""}</div>` : ""}
+            </div>
+          `;
+        });
       }
-    }
-  }
 
-  function displayAISearchResults(results) {
-    if (!results || results.length === 0) {
-      if (aiSearchResults) {
-        aiSearchResults.innerHTML = '<div class="ai-search-no-results">No results found</div>';
+      if (!answer && snippets.length === 0) {
+        html = `<div style="padding:24px;text-align:center;opacity:0.5;">No results found. Try a different query.</div>`;
       }
-      return;
-    }
 
-    if (aiSearchResults) {
-      aiSearchResults.innerHTML = results.map(function(result) {
-        return `
-        <div class="ai-search-result" data-url="${result.url || '#'}">
-          <div class="ai-search-result-title">${result.title || 'Untitled'}</div>
-          <div class="ai-search-result-snippet">${result.snippet || result.content || ''}</div>
-        </div>
-      `;
-      }).join('');
+      aiSearchResults.innerHTML = html;
 
-      document.querySelectorAll('.ai-search-result').forEach(function(item) {
-        item.addEventListener('click', function() {
-          const url = item.getAttribute('data-url');
-          if (url && url !== '#') {
-            window.location.href = url;
-          }
+      aiSearchResults.querySelectorAll(".ai-result-item").forEach(function(el) {
+        el.addEventListener("click", function() {
+          const url = el.getAttribute("data-url");
+          if (url && url !== "") window.location.href = url;
+        });
+        el.addEventListener("mouseenter", function() {
+          el.style.background = "rgb(var(--surface))";
+          el.style.color = "rgb(var(--text-3))";
+        });
+        el.addEventListener("mouseleave", function() {
+          el.style.background = "";
+          el.style.color = "";
         });
       });
+
+    } catch (err) {
+      aiSearchResults.innerHTML = `
+        <div style="padding:16px;color:#ef4444;font-size:0.9375rem;">
+          Search failed. Please try again.<br>
+          <span style="opacity:0.6;font-size:0.8125rem;">${escapeHtml(String(err))}</span>
+        </div>
+      `;
     }
   }
 
-  aiSearchSubmit?.addEventListener('click', performAISearch);
-  aiSearchInput?.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') {
-      performAISearch();
-    }
+  keywordSearchBtn?.addEventListener("click", switchToKeyword);
+  aiSearchBtn?.addEventListener("click", switchToAI);
+  closeSearchBtn?.addEventListener("click", closeSearch);
+  aiSearchSubmit?.addEventListener("click", performAISearch);
+  aiSearchInput?.addEventListener("keydown", function(e) {
+    if (e.key === "Enter") { e.preventDefault(); performAISearch(); }
   });
 
-  // open pagefind
-  magnifyingGlass?.addEventListener("click", () => {
-    openPagefind();
-  });
-
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "/") {
+  // Open from header search link / magnifying glass
+  document.addEventListener("click", function(e) {
+    const trigger = e.target.closest("[data-open-search]");
+    if (trigger) {
       e.preventDefault();
-      openPagefind();
-    } else if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+      openSearch(trigger.dataset.openSearch || "keyword");
+    }
+    const magnifyingGlass = document.getElementById("magnifying-glass");
+    if (magnifyingGlass && (e.target === magnifyingGlass || magnifyingGlass.contains(e.target))) {
+      openSearch("keyword");
+    }
+  });
+
+  document.addEventListener("keydown", function(e) {
+    if (e.key === "Escape") { closeSearch(); return; }
+    if (e.key === "/" && !["INPUT","TEXTAREA"].includes(document.activeElement?.tagName)) {
       e.preventDefault();
-      openPagefind();
+      openSearch("keyword");
+    }
+    if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+      e.preventDefault();
+      openSearch("keyword");
     }
   });
 
-  // close pagefind
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      closePagefind();
-    }
+  backdrop?.addEventListener("click", function(e) {
+    if (!e.target.closest("#pagefind-container")) closeSearch();
   });
 
-  // close pagefind when searched result(link) clicked
-  document.addEventListener("click", function(event) {
-    const target = event.target;
-    if (target && target.classList && 
-        (target.classList.contains("pagefind-ui__result-link") || 
-         target.classList.contains("ai-search-result"))) {
-      closePagefind();
-    }
-  });
-
-  backdrop?.addEventListener("click", function(event) {
-    const target = event.target;
-    if (target && target.closest && !target.closest("#pagefind-container")) {
-      closePagefind();
-    }
-  });
-
-  // prevent form submission
-  const form = document.getElementById("form");
-  form?.addEventListener("submit", (event) => {
-    event.preventDefault();
-  });
+  // Also expose openSearch globally for inline scripts on other pages
+  window.__openSearch = openSearch;
 </script>
 
 <style is:global>
   :root {
-    --pagefind-ui-scale: 0.75;
-    --pagefind-ui-border-width: 1px;
-    --pagefind-ui-border-radius: 3px;
-    --pagefind-ui-font: "Geist", sans-serif;
-    --pagefind-ui-primary: #282828;
-    --pagefind-ui-text: #282828;
-    --pagefind-ui-background: #E5E5E5;
-    --pagefind-ui-border: #C1C1C1;
-    --pagefind-ui-tag: #C1C1C1;
+    --pagefind-ui-scale: 0.85;
+    --pagefind-ui-border-width: 1.5px;
+    --pagefind-ui-border-radius: 10px;
+    --pagefind-ui-font: "Geist Sans", ui-sans-serif, system-ui, sans-serif;
+    --pagefind-ui-primary: rgb(28, 28, 28);
+    --pagefind-ui-text: rgb(28, 28, 28);
+    --pagefind-ui-background: rgb(229, 229, 229);
+    --pagefind-ui-border: rgb(28, 28, 28);
+    --pagefind-ui-tag: rgb(28, 28, 28);
   }
 
   .dark {
-    --pagefind-ui-primary: #282828;
-    --pagefind-ui-text: #282828;
-    --pagefind-ui-background: #C1C1C1;
-    --pagefind-ui-border: #E5E5E5;
+    --pagefind-ui-primary: rgb(229, 229, 229);
+    --pagefind-ui-text: rgb(229, 229, 229);
+    --pagefind-ui-background: rgb(28, 28, 28);
+    --pagefind-ui-border: rgb(229, 229, 229);
+    --pagefind-ui-tag: rgb(229, 229, 229);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not(.light) {
+      --pagefind-ui-primary: rgb(229, 229, 229);
+      --pagefind-ui-text: rgb(229, 229, 229);
+      --pagefind-ui-background: rgb(28, 28, 28);
+      --pagefind-ui-border: rgb(229, 229, 229);
+      --pagefind-ui-tag: rgb(229, 229, 229);
+    }
   }
 
   #search input {
-    font-weight: normal;
+    font-weight: 400;
+    font-size: 1rem;
+    min-height: 48px;
   }
 
-  #search p {
-    font-weight: normal;
-  }
+  #search p { font-weight: 400; }
+  #search .pagefind-ui__result-title { font-weight: 600; }
+  #search .pagefind-ui__message { padding: 0; padding-bottom: 0.75rem; }
 
-  #search .pagefind-ui__result-title {
-    font-weight: 600;
-  }
-
-  #search .pagefind-ui__message {
-    padding: 0;
-    padding-bottom: 0.75rem;
-  }
-
-  .search-mode-toggle {
-    display: flex;
-    gap: 0.5rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .mode-btn {
-    flex: 1;
-    padding: 0.5rem 1rem;
-    background-color: transparent;
-    border: 1px solid #C1C1C1;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: #282828;
-    transition: all 0.2s;
-  }
-
-  .mode-btn:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-  }
-
-  .mode-btn.active {
-    background-color: #282828;
-    color: #E5E5E5;
-    border-color: #282828;
-  }
-
-  .ai-search-input-wrapper {
-    display: flex;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-  }
-
-  .ai-search-input {
-    flex: 1;
-    padding: 0.75rem;
-    border: 1px solid #C1C1C1;
-    border-radius: 4px;
-    font-size: 0.875rem;
-    background-color: #E5E5E5;
-    color: #282828;
-    outline: none;
-  }
-
-  .ai-search-input:focus {
-    border-color: #282828;
-  }
-
-  .ai-search-submit {
-    padding: 0.75rem 1.25rem;
-    background-color: #282828;
-    color: #E5E5E5;
+  .search-tab-btn {
+    padding: 14px 20px;
+    background: none;
     border: none;
-    border-radius: 4px;
     cursor: pointer;
-    font-size: 0.875rem;
+    font-size: 0.9375rem;
     font-weight: 500;
-    transition: opacity 0.2s;
+    color: rgb(var(--text-1));
+    opacity: 0.45;
+    transition: opacity 0.15s;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1.5px;
   }
 
-  .ai-search-submit:hover {
-    opacity: 0.9;
+  .search-tab-btn:hover {
+    opacity: 0.75;
   }
 
-  .ai-search-results {
-    max-height: 300px;
-    overflow-y: auto;
-  }
-
-  .ai-search-result {
-    padding: 0.75rem;
-    border-bottom: 1px solid #C1C1C1;
-    cursor: pointer;
-    transition: background-color 0.2s;
-  }
-
-  .ai-search-result:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-  }
-
-  .ai-search-result:last-child {
-    border-bottom: none;
-  }
-
-  .ai-search-result-title {
-    font-weight: 600;
-    color: #282828;
-    margin-bottom: 0.25rem;
-  }
-
-  .ai-search-result-snippet {
-    font-size: 0.875rem;
-    color: #666;
-    line-height: 1.5;
-  }
-
-  .ai-search-loading,
-  .ai-search-error,
-  .ai-search-no-results {
-    padding: 1rem;
-    text-align: center;
-    color: #666;
-  }
-
-  .ai-search-error {
-    color: #dc2626;
-  }
-
-  .hidden {
-    display: none;
+  .search-tab-active {
+    opacity: 1;
+    border-bottom-color: rgb(var(--text-1));
   }
 </style>
