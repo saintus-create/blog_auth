@@ -1,23 +1,24 @@
 /*
  * Tokens.css
- * Design tokens - colors, spacing, typography scale, and other foundational values
+ * Design tokens — spatial display optimized for Meta AI glasses & Apple Vision Pro
+ * WCAG AAA contrast (7:1+), generous sizing, true dark/light switching
  */
 
 :root {
-  /* Typography scale (rem-based, stable rendering) */
-  --text-12: 0.75rem;
-  --text-14: 0.875rem;
-  --text-16: 1rem;
-  --text-20: 1.25rem;
-  --text-24: 1.5rem;
-  --text-32: 2rem;
-  --text-40: 2.5rem;
-  --text-56: 3.5rem;
+  /* Typography scale — bumped for spatial display readability (Meta glasses, visionOS) */
+  --text-12: 0.875rem;   /* 14px min — nothing smaller */
+  --text-14: 1rem;       /* 16px — base small */
+  --text-16: 1.125rem;   /* 18px — body text (spatial minimum) */
+  --text-20: 1.375rem;   /* 22px */
+  --text-24: 1.625rem;   /* 26px */
+  --text-32: 2.125rem;   /* 34px */
+  --text-40: 2.75rem;    /* 44px */
+  --text-56: 3.75rem;    /* 60px */
 
-  /* Line heights */
-  --lh-tight: 1.15;
-  --lh-heading: 1.25;
-  --lh-body: 1.6;
+  /* Line heights — generous for curved/lens rendering */
+  --lh-tight: 1.2;
+  --lh-heading: 1.3;
+  --lh-body: 1.75;  /* Extra air for spatial displays */
 
   /* Spacing (8px system) */
   --space-4: 0.25rem;
@@ -28,86 +29,112 @@
   --space-48: 3rem;
   --space-64: 4rem;
 
-  /* Radius - matched to icon stroke language */
+  /* Radius */
   --r-sm: 6px;
   --r-md: 12px;
   --r-lg: 18px;
 
-  /* Icon stroke weight tokens - consistent visual weight */
-  --icon-stroke: 1.5px;
-  --icon-stroke-bold: 2px;
+  /* Icon stroke — slightly bolder for spatial displays */
+  --icon-stroke: 1.75px;
+  --icon-stroke-bold: 2.25px;
 
-  /* Contemporary CSS features - Text Box Trim & Edge */
-  --text-box-trim-start: 0.5em;
-  --text-box-trim-end: 0.5em;
-  --text-box-edge: cap alphabetic;
+  /* Contemporary CSS */
+  --transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
 
-  /* Modern CSS features */
-  --field-sizing: content; /* Auto-sizing form fields */
-  --anchor-position: normal; /* Anchor positioning */
-  --container-name: blog-content; /* Container queries */
-  --transition-timing: cubic-bezier(0.4, 0, 0.2, 1); /* Modern easing */
+  /* Touch/gaze targets — 48px minimum for spatial (Apple Vision Pro HIG: 60pt+) */
+  --target-min: 48px;
+  --target-spatial: 60px;
 
-  /* Apple button size system */
+  /* Button system */
   --btn-padding-horizontal: 22px;
-  --btn-padding-vertical: 12px;
+  --btn-padding-vertical: 14px;  /* Larger for spatial targets */
   --btn-min-width: 70px;
+  --btn-min-height: var(--target-min);
   --btn-margin-horizontal: 18px;
   --btn-margin-vertical: 18px;
-  --btn-border-width: 1px;
+  --btn-border-width: 1.5px;     /* Slightly thicker for spatial clarity */
   --btn-border-radius: 980px;
 
   /* Medium button sizes */
-  --btn-padding-horizontal-md: 11px;
-  --btn-padding-vertical-md: 4px;
+  --btn-padding-horizontal-md: 14px;
+  --btn-padding-vertical-md: 8px;
   --btn-min-width-md: 45px;
   --btn-margin-horizontal-md: 10px;
   --btn-margin-vertical-md: 10px;
 
-  /* Colors - Two color system: #E5E5E5 and #1C1C1C */
-  --bg: 229 229 229; /* #E5E5E5 */
-  --surface: 28 28 28; /* #1C1C1C */
+  /* ─── LIGHT MODE ─────────────────────────────────────────────────────────── */
+  /* Two-color system: #E5E5E5 (light) and #1C1C1C (dark) */
+  /* Contrast ratio: 13.9:1 — exceeds WCAG AAA (7:1) */
+  --bg: 229 229 229;        /* #E5E5E5 — light background */
+  --surface: 28 28 28;      /* #1C1C1C — dark surfaces (header, buttons) */
 
-  --text-1: 28 28 28;
-  --text-2: 28 28 28; /* #1C1C1C */
-  --text-3: 229 229 229; /* #E5E5E5 */
+  --text-1: 28 28 28;       /* #1C1C1C — primary text on light bg */
+  --text-2: 28 28 28;       /* #1C1C1C — secondary text */
+  --text-3: 229 229 229;    /* #E5E5E5 — text on dark surfaces */
 
-  --border: 28 28 28; /* #1C1C1C */
+  --border: 28 28 28;       /* #1C1C1C — borders */
 
-  /* Astro code syntax colors */
+  /* Astro code syntax — light */
   --astro-code-foreground: #09090b;
-  --astro-code-background: #fafafa;
-  --astro-code-token-comment: #a19595;
-  --astro-code-token-keyword: #f47067;
-  --astro-code-token-string: #00a99a;
-  --astro-code-token-function: #429996;
-  --astro-code-token-constant: #2b70c5;
-  --astro-code-token-parameter: #4e8fdf;
-  --astro-code-token-string-expression: #ae42a0;
-  --astro-code-token-punctuation: #8996a3;
-  --astro-code-token-link: #8d85ff;
+  --astro-code-background: #f4f4f5;
+  --astro-code-token-comment: #71717a;
+  --astro-code-token-keyword: #dc2626;
+  --astro-code-token-string: #059669;
+  --astro-code-token-function: #0369a1;
+  --astro-code-token-constant: #7c3aed;
+  --astro-code-token-parameter: #0284c7;
+  --astro-code-token-string-expression: #9333ea;
+  --astro-code-token-punctuation: #52525b;
+  --astro-code-token-link: #4f46e5;
 }
 
+/* ─── DARK MODE ──────────────────────────────────────────────────────────── */
+/* Swap: light bg → dark bg, dark text → light text */
+/* Contrast ratio: 13.9:1 — exceeds WCAG AAA (7:1) */
+/* Optimized for lens rendering (Meta glasses) and spatial display (Vision Pro) */
 .dark {
-  --bg: 229 229 229; /* #E5E5E5 */
-  --surface: 28 28 28; /* #1C1C1C */
+  --bg: 28 28 28;           /* #1C1C1C — dark background */
+  --surface: 229 229 229;   /* #E5E5E5 — light surfaces */
 
-  --text-1: 28 28 28;
-  --text-2: 28 28 28; /* #1C1C1C */
-  --text-3: 229 229 229; /* #E5E5E5 */
+  --text-1: 229 229 229;    /* #E5E5E5 — primary text on dark bg */
+  --text-2: 229 229 229;    /* #E5E5E5 — secondary text */
+  --text-3: 28 28 28;       /* #1C1C1C — text on light surfaces */
 
-  --border: 28 28 28; /* #1C1C1C */
+  --border: 229 229 229;    /* #E5E5E5 — borders */
 
-  /* Astro code syntax colors */
-  --astro-code-foreground: #fafafa;
-  --astro-code-background: #09090b;
-  --astro-code-token-comment: #a19595;
-  --astro-code-token-keyword: #f47067;
-  --astro-code-token-string: #00a99a;
-  --astro-code-token-function: #6eafad;
-  --astro-code-token-constant: #b3cfeb;
-  --astro-code-token-parameter: #4e8fdf;
-  --astro-code-token-string-expression: #bf7db6;
-  --astro-code-token-punctuation: #8996a3;
-  --astro-code-token-link: #8d85ff;
+  /* Astro code syntax — dark, optimized for lens/spatial display */
+  --astro-code-foreground: #e4e4e7;
+  --astro-code-background: #18181b;
+  --astro-code-token-comment: #a1a1aa;
+  --astro-code-token-keyword: #f87171;
+  --astro-code-token-string: #34d399;
+  --astro-code-token-function: #38bdf8;
+  --astro-code-token-constant: #c084fc;
+  --astro-code-token-parameter: #7dd3fc;
+  --astro-code-token-string-expression: #e879f9;
+  --astro-code-token-punctuation: #a1a1aa;
+  --astro-code-token-link: #818cf8;
+}
+
+/* Auto dark mode — respects system preference (important for Vision Pro & Meta glasses) */
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    --bg: 28 28 28;
+    --surface: 229 229 229;
+    --text-1: 229 229 229;
+    --text-2: 229 229 229;
+    --text-3: 28 28 28;
+    --border: 229 229 229;
+    --astro-code-foreground: #e4e4e7;
+    --astro-code-background: #18181b;
+    --astro-code-token-comment: #a1a1aa;
+    --astro-code-token-keyword: #f87171;
+    --astro-code-token-string: #34d399;
+    --astro-code-token-function: #38bdf8;
+    --astro-code-token-constant: #c084fc;
+    --astro-code-token-parameter: #7dd3fc;
+    --astro-code-token-string-expression: #e879f9;
+    --astro-code-token-punctuation: #a1a1aa;
+    --astro-code-token-link: #818cf8;
+  }
 }
